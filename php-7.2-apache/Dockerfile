@@ -43,7 +43,7 @@ RUN docker-php-ext-install opcache
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
-COPY "provisioning/docker/memory-limit-php.ini" "/usr/local/etc/php/conf.d/memory-limit-php.ini"
+RUN echo "memory_limit=-1" > /usr/local/etc/php/conf.d/memory-limit-php.ini
 
 # Node
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - && apt-get install -y nodejs
