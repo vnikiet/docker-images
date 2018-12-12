@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.2-apache
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
@@ -36,7 +36,7 @@ RUN docker-php-ext-install \
 
 # Install xDebug
 RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
+#RUN docker-php-ext-enable xdebug
 
 # Install opcache
 RUN docker-php-ext-install opcache
@@ -45,7 +45,7 @@ RUN docker-php-ext-install opcache
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
-COPY "provisioning/docker/memory-limit-php.ini" "/usr/local/etc/php/conf.d/memory-limit-php.ini"
+RUN echo "memory_limit=-1" > /usr/local/etc/php/conf.d/memory-limit-php.ini
 
 # Node
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - && apt-get install -y nodejs
@@ -55,6 +55,10 @@ RUN apt-get install -y apt-transport-https
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn
+
+# Install gulp
+RUN npm install gulp-cli -g
+RUN npm install gulp -D
 
 WORKDIR /code
 
