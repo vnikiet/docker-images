@@ -34,7 +34,7 @@ RUN docker-php-ext-install \
 
 # Install xDebug
 RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
+#RUN docker-php-ext-enable xdebug
 
 # Install opcache
 RUN docker-php-ext-install opcache
