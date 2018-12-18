@@ -22,6 +22,7 @@ RUN docker-php-ext-enable imagick
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ --with-gd
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
+RUN docker-php-ext-configure intl
 
 RUN docker-php-ext-install \
     gd \
@@ -32,7 +33,9 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     soap \
-    zip
+    zip \
+    intl \
+    exif
 
 # Install xDebug
 RUN pecl install xdebug
