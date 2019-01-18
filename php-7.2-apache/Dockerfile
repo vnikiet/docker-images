@@ -13,14 +13,16 @@ RUN apt-get update && apt-get install -y \
     tmux \
     vim \
     zip \
-    zlib1g-dev
+    zlib1g-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev
 
 # Imagick
 RUN apt-get install -y libmagickwand-dev --no-install-recommends
 RUN pecl install imagick-beta
 RUN docker-php-ext-enable imagick
 
-RUN docker-php-ext-configure gd --with-png-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ --with-gd
+RUN docker-php-ext-configure gd --with-png-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ --with-gd --with-freetype-dir=/usr/include/
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 RUN docker-php-ext-configure intl
 
